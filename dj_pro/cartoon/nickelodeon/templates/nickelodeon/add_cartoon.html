@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Cartoon</title>
+</head>
+<body>
+<h3>{{ username }}, add cartoon!</h3>
+{% block content %}
+<form action="/add_cartoon_info/" method="POST">
+    <div>
+        <label for="cartoon_title">Title:</label>
+        <input id="cartoon_title" name="cartoon_title" placeholder="Title">
+    </div>
+    <br>
+    <button type="submit">Add!</button>
+</form>
+{% endblock %}
+</body>
+</html>

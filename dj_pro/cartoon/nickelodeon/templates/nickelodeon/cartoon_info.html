@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cartoon info</title>
+</head>
+<body>
+<h3>Add information about {{ title }}</h3>
+{% block content %}
+<form action="/show_info/" method="POST">
+    <div>
+        <label for="cartoon_year">Year:</label>
+        <input id="cartoon_year" name="cartoon_year" placeholder="Year">
+    </div>
+    <br>
+    <div>
+        <label for="cartoon_author">Author:</label>
+        <input id="cartoon_author" name="cartoon_author" placeholder="Author">
+    </div>
+    <br>
+    <div>
+        <label for="cartoon_rating">Rating:</label>
+        <input id="cartoon_rating" name="cartoon_rating" placeholder="Rating">
+    </div>
+    <br>
+    <button type="submit">Add!</button>
+</form>
+{% endblock %}
+</body>
+</html>

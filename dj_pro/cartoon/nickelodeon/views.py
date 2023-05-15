@@ -29,8 +29,7 @@ def login(request):
         surname = request.POST.get('surname')
         global user
         user = CartoonUser(username, surname)
-        add_user = CartoonUser(username=username, surname=surname)
-        add_user.save()
+        add_user = CartoonUser.objects.create(username=username, surname=surname)
         template = 'nickelodeon/login_info.html'
         return render(request, template, {"username": username, "surname": surname})
     else:

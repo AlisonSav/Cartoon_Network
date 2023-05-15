@@ -3,5 +3,10 @@
 {% block title %} Information {% endblock %}
 
 {% block content %}
-<h3>Added: {{ cartoon }}</h3>
+<h2>Added: </h2>
+    <h3>{{ cartoon }}</h3>
+    <br>
+        <form action="/login" method="POST">
+            <a href="/">Return to Home page</a>
+        </form>
 {% endblock %}

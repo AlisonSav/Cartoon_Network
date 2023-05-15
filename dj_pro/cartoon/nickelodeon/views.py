@@ -58,10 +58,14 @@ def add_cartoon_info(request):
 
 
 def show_info(request):
-    year = request.POST.get('cartoon_year')
-    author = request.POST.get('cartoon_author')
-    rating = request.POST.get('cartoon_rating')
-    upd_cartoon = Cartoon.objects.filter(title=cartoon.title).update(year=year, author=author, rating=rating)
-    template = 'nickelodeon/show_info.html'
-    cartoon_info = Cartoon.objects.filter(title=cartoon.title)
-    return render(request, template, {"cartoon": cartoon_info})
+    """Show all information about added cartoon"""
+    if cartoon:
+        year = request.POST.get('cartoon_year')
+        author = request.POST.get('cartoon_author')
+        rating = request.POST.get('cartoon_rating')
+        upd_cartoon = Cartoon.objects.filter(title=cartoon.title).update(year=year, author=author, rating=rating)
+        template = 'nickelodeon/show_info.html'
+        cartoon_info = Cartoon.objects.filter(title=cartoon.title)
+        return render(request, template, {"cartoon": cartoon_info})
+    else:
+        return HttpResponseRedirect(redirect_link)

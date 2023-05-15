@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cartoon</title>
-</head>
-<body>
-<h3>Hello! You need to log in</h3>
+{% extends 'nickelodeon/base.html' %}
+
+{% block title %} Cartoon {% endblock %}
+
 {% block content %}
-<form action="/login/" method="POST">
-    <div>
-        <label for="username">Please, enter name:</label>
-        <input id="username" name="username" placeholder="Name"><br>
-    </div>
-    <br>
-    <div>
-        <label for="surname">Please, enter surname:</label>
-        <input id="surname" name="surname" placeholder="Surname"><br>
-    </div>
-    <br>
-    <button type="submit">Login</button>
-</form>
+    <h3>Hello! You need to log in</h3>
+    <form action="/login/" method="POST">
+        <div>
+            <label for="username">Please, enter name:</label>
+            <input id="username" name="username" placeholder="Name"><br>
+        </div>
+        <br>
+        <div>
+            <label for="surname">Please, enter surname:</label>
+            <input id="surname" name="surname" placeholder="Surname"><br>
+        </div>
+        <br>
+        <button type="submit">Login</button>
+    </form>
 {% endblock %}
-</body>
-</html>

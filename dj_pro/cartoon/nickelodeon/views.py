@@ -41,7 +41,7 @@ def add_cartoon(request):
     """Endpoint for adding Cartoons title"""
     if user:
         template = 'nickelodeon/add_cartoon.html'
-        return render(request, template, {"username": user.username})
+        return render(request, template, {"user": user})
     else:
         return HttpResponseRedirect(redirect_link)
 

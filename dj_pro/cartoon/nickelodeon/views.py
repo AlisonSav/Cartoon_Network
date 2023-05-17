@@ -18,8 +18,7 @@ def get_info_numb(request, sign_path: int):
 
 def index(request):
     """Endpoint with fields for login"""
-    response = render_to_string('nickelodeon/cartoon_title.html')
-    return HttpResponse(response)
+    return render(request, 'nickelodeon/cartoon_title.html')
 
 
 def login(request):

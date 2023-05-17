@@ -1,0 +1,14 @@
+{% extends 'nickelodeon/base.html' %}
+
+{% block title %} DB info {% endblock %}
+
+{% block content %}
+<h3>Cartoons list: </h3>
+    <ul>
+        {% for cartoon in cartoons %}
+            <li>
+                {{ cartoon }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

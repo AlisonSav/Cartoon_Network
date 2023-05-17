@@ -64,7 +64,13 @@ def show_info(request):
         rating = request.POST.get('cartoon_rating')
         upd_cartoon = Cartoon.objects.filter(title=cartoon.title).update(year=year, author=author, rating=rating)
         template = 'nickelodeon/show_info.html'
-        cartoon_info = Cartoon.objects.filter(title=cartoon.title)
+        cartoon_info = Cartoon.objects.get(title=cartoon.title)
         return render(request, template, {"cartoon": cartoon_info})
     else:
         return HttpResponseRedirect(redirect_link)
+
+
+def all_info_from_db(request):
+    cartoons = Cartoon.objects.all()
+    template ='nickelodeon/info_from_db.html'
+    return render(request, template, {'cartoons': cartoons})

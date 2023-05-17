@@ -4,9 +4,14 @@
 
 {% block content %}
 <h2>Added: </h2>
-    <h3>{{ cartoon }}</h3>
+    <ul>
+    <li><h3> {{ cartoon }} </h3></li>
+    </ul>
+
     <br>
         <form action="/login" method="POST">
             <a href="/">Return to Home page</a>
         </form>
 {% endblock %}
+
+

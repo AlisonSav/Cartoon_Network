@@ -1,10 +1,17 @@
 {% extends 'nickelodeon/base.html' %}
 
-{% block title %} Cartoon {% endblock %}
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href=" {% static 'nickelodeon/css/index.css' %}">
+{% endblock %}
+
+{% block title %} Cartoon {% endblock title %}
 
 {% block content %}
-    <h3>Hello! You need to log in</h3>
-    <form action="/login/" method="POST">
+    <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h3>Hello! You need to log in</h3></legend>
         <div>
             <label for="username">Please, enter name:</label>
             <input id="username" name="username" placeholder="Name"><br>
@@ -15,6 +22,9 @@
             <input id="surname" name="surname" placeholder="Surname"><br>
         </div>
         <br>
+
         <button type="submit">Login</button>
-    </form>
-{% endblock %}
+        <br>
+    </fieldset>
+
+{% endblock content %}

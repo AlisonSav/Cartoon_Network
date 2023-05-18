@@ -2,7 +2,8 @@ import sqlite3
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.template.loader import render_to_string
+
+from .forms import CartoonUserForm
 from .models import CartoonUser, Cartoon
 
 con = sqlite3.connect('db.sqlite3', check_same_thread=False)
@@ -18,19 +19,21 @@ def get_info_numb(request, sign_path: int):
 
 def index(request):
     """Endpoint with fields for login"""
-    return render(request, 'nickelodeon/cartoon_title.html')
+    return render(request, 'nickelodeon/index.html')
 
 
 def login(request):
     """Home page after user logs in"""
     if request.POST:
-        username = request.POST.get('username')
-        surname = request.POST.get('surname')
-        global user
-        user = CartoonUser(username, surname)
-        add_user = CartoonUser.objects.create(username=username, surname=surname)
-        template = 'nickelodeon/login_info.html'
-        return render(request, template, {"username": username, "surname": surname})
+        form_data = CartoonUserForm(request.POST)
+        if form_data.is_valid():
+            username = form_data.cleaned_data['username']
+            surname = form_data.cleaned_data['surname']
+            global user
+            user = CartoonUser(username, surname)
+            CartoonUser.objects.create(username=username, surname=surname)
+            template = 'nickelodeon/login.html'
+        return render(request, 'nickelodeon/login.html', {"user": user, "error_message": form_data.errors})
     else:
         return HttpResponseRedirect(redirect_link)
 
@@ -38,7 +41,7 @@ def login(request):
 def add_cartoon(request):
     """Endpoint for adding Cartoons title"""
     if user:
-        template = 'nickelodeon/add_cartoon.html'
+        template = 'nickelodeon/add_cartoon_title.html'
         return render(request, template, {"user": user})
     else:
         return HttpResponseRedirect(redirect_link)
@@ -51,7 +54,7 @@ def add_cartoon_info(request):
     cartoon = Cartoon(title=cartoon_title)
     add_user = Cartoon(title=cartoon_title)
     add_user.save()
-    template = 'nickelodeon/cartoon_info.html'
+    template = 'nickelodeon/add_cartoon_info.html'
     return render(request, template, {"title": cartoon_title})
 
 
@@ -71,5 +74,5 @@ def show_info(request):
 
 def all_info_from_db(request):
     cartoons = Cartoon.objects.all()
-    template ='nickelodeon/info_from_db.html'
+    template = 'nickelodeon/all_info_from_db.html'
     return render(request, template, {'cartoons': cartoons})

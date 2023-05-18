@@ -1,0 +1,18 @@
+{% extends 'nickelodeon/base.html' %}
+{% block title %} Add Cartoon{% endblock title %}
+
+{% block content %}
+    <form action="{% url 'add_cartoon_info' %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h3>{{ user.username }}, add cartoon!</h3></legend>
+            <div>
+                <label for="cartoon_title">Title:</label>
+                <input id="cartoon_title" name="cartoon_title" placeholder="Title">
+            </div>
+            <br>
+            <button type="submit">Add!</button>
+        </fieldset>
+    </form>
+    {% include 'nickelodeon/return_home_page.html' %}
+{% endblock content %}

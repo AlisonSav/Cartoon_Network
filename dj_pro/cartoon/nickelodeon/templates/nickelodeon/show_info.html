@@ -1,14 +1,19 @@
 {% extends 'nickelodeon/base.html' %}
 
-{% block title %} Information {% endblock %}
+{% block title %} Information {% endblock title %}
 
 {% block content %}
-<h2>Added: </h2>
-    <ul>
-    <li><h3> {{ cartoon }} </h3></li>
-    </ul>
+    <form action="{% url 'show_info' %}" method="GET">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h2>Added: </h2></legend>
+            <ul>
+                <li><h3> {{ cartoon }} </h3></li>
+            </ul>
+        </fieldset>
+    </form>
 
-{% include 'nickelodeon/return_home_page.html' %}
-{% endblock %}
+    {% include 'nickelodeon/return_home_page.html' %}
+{% endblock content %}
 
 

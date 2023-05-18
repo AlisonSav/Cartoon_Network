@@ -1,0 +1,23 @@
+{% extends 'nickelodeon/base.html' %}
+
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href=" {% static 'nickelodeon/css/login.css' %}">
+{% endblock %}
+
+{% block title %} Aloha! {% endblock title %}
+
+{% block content %}
+    <form action="{% url 'add_cartoon' %}" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h3>Aloha, {{ user.username }} {{ user.surname }}!</h3></legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>
+            {% else %}
+                <label for="cartoon"> Are you want to add cartoon?</label>
+                <button type="submit">Add cartoon</button>
+            {% endif %}
+        </fieldset>
+    </form>
+    {% include 'nickelodeon/return_home_page.html' %}
+{% endblock content %}

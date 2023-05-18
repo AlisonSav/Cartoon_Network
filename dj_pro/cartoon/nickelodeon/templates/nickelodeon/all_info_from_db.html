@@ -1,0 +1,24 @@
+{% extends 'nickelodeon/base.html' %}
+
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href=" {% static 'nickelodeon/css/all_info_from_db.css' %}">
+{% endblock %}
+
+{% block title %} DB info {% endblock title %}
+
+{% block content %}
+    <form action="{% url 'all_info_from_db' %}" method="GET">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h3>Cartoons list: </h3></legend>
+            <ul>
+                {% for cartoon in cartoons %}
+                    <li>
+                        {{ cartoon }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </fieldset>
+    </form>
+{% endblock content %}

@@ -5,18 +5,15 @@
     <link rel="stylesheet" href=" {% static 'nickelodeon/css/all_info_from_db.css' %}">
 {% endblock %}
 
-{% block title %} DB info {% endblock title %}
+{% block title %} Get Info {% endblock title %}
 
 {% block content %}
     <form action="{% url 'all_info_from_db' %}" method="GET">
         {% csrf_token %}
         <fieldset>
-            <legend><h3>Cartoons list: </h3></legend>
-            <ul>
-                {% for cartoon in cartoons %}
-                    <li><a href="{% url 'get_info_by_id' cartoon.id %}">{{ cartoon }}</a></li>
-                {% endfor %}
-            </ul>
+            <legend><h3>Cartoon Information: </h3></legend>
+            {{ cartoon }}
         </fieldset>
     </form>
+    {% include 'nickelodeon/return_home_page.html' %}
 {% endblock content %}

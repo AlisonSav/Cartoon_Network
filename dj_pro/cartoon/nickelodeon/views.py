@@ -1,7 +1,9 @@
 import sqlite3
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, FormView
 
 from .forms import CartoonUserForm
 from .models import CartoonUser, Cartoon
@@ -17,9 +19,34 @@ def get_info_numb(request, sign_path: int):
     return HttpResponse(f"<h3>Incorrect path: {sign_path}</h3>")
 
 
-def index(request):
+# def index(request):
+#     """Endpoint with fields for login"""
+#     return render(request, 'nickelodeon/index.html')
+
+
+class IndexList(ListView):
     """Endpoint with fields for login"""
-    return render(request, 'nickelodeon/index.html')
+    model = CartoonUser
+    template_name = 'nickelodeon/index.html'
+
+
+# class LoginFormView(FormView):
+#     form_class = CartoonUserForm
+#     template_name = 'nickelodeon/login.html'
+#     success_url = "/login/"
+#
+#     def form_valid(self, form):
+#         username = form.cleaned_data['username']
+#         surname = form.cleaned_data['surname']
+#         global user
+#         user = CartoonUser(username, surname)
+#         CartoonUser.objects.create(username=username, surname=surname)
+#         return super().form_valid(form)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data()
+#         context['user'] = get_object_or_404(CartoonUser)
+#         return context
 
 
 def login(request):
@@ -32,7 +59,6 @@ def login(request):
             global user
             user = CartoonUser(username, surname)
             CartoonUser.objects.create(username=username, surname=surname)
-            template = 'nickelodeon/login.html'
         return render(request, 'nickelodeon/login.html', {"user": user, "error_message": form_data.errors})
     else:
         return HttpResponseRedirect(redirect_link)
@@ -72,7 +98,11 @@ def show_info(request):
         return HttpResponseRedirect(redirect_link)
 
 
-def all_info_from_db(request):
-    cartoons = Cartoon.objects.all()
-    template = 'nickelodeon/all_info_from_db.html'
-    return render(request, template, {'cartoons': cartoons})
+class CartoonsList(ListView):
+    model = Cartoon
+    template_name = 'nickelodeon/all_info_from_db.html'
+    context_object_name = 'cartoons'
+
+
+class CartoonDetail(DetailView):
+    model = Cartoon

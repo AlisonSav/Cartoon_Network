@@ -3,7 +3,7 @@ import sqlite3
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, FormView, CreateView
 
 from .forms import CartoonUserForm
 from .models import CartoonUser, Cartoon
@@ -56,9 +56,11 @@ def login(request):
         if form_data.is_valid():
             username = form_data.cleaned_data['username']
             surname = form_data.cleaned_data['surname']
+            email = form_data.cleaned_data['email']
+            print(form_data.cleaned_data)
             global user
-            user = CartoonUser(username, surname)
-            CartoonUser.objects.create(username=username, surname=surname)
+            user = CartoonUser(username, surname, login)
+            CartoonUser.objects.create(username=username, surname=surname, email=email)
         return render(request, 'nickelodeon/login.html', {"user": user, "error_message": form_data.errors})
     else:
         return HttpResponseRedirect(redirect_link)

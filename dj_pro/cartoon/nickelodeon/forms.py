@@ -8,7 +8,7 @@ class CartoonUserForm(forms.ModelForm):
     username = forms.CharField(min_length=3, max_length=25)
     class Meta:
         model = CartoonUser
-        fields = ['username', 'surname']
+        fields = ['username', 'surname', 'email']
 
     def clean_username(self):
         data = self.cleaned_data['username']
@@ -20,7 +20,15 @@ class CartoonUserForm(forms.ModelForm):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
         surname = cleaned_data.get('surname')
-        if username and surname and (username not in surname):
+        email = cleaned_data.get('email')
+        print(cleaned_data)
+        if email.endswith('@ithillel.ua'):
+            pass
+        else:
+            raise ValidationError('Wrong email-domain')
+        if username and surname and email and (username not in surname):
             pass
         else:
             raise ValidationError('Please start your login form Username')
+
+

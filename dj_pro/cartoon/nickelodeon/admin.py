@@ -5,7 +5,7 @@ from .models import Cartoon, CartoonUser
 
 @admin.register(CartoonUser)
 class CartoonUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'surname')
+    list_display = ('username', 'surname', 'email')
 
 
 class CartoonAdmin(admin.ModelAdmin):

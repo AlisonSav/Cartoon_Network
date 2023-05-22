@@ -5,9 +5,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class CartoonUser(models.Model):
     username = models.CharField(max_length=25)
     surname = models.CharField(max_length=20)
+    email = models.EmailField()
 
     def __str__(self):
-        return f"Cartoon user: {self.username}, Pwd: {self.surname}"
+        return f"Cartoon user: {self.username}, Surname: {self.surname}, Email: {self.email}"
 
 
 class Cartoon(models.Model):

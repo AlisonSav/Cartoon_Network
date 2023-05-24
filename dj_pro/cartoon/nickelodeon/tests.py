@@ -25,6 +25,7 @@ def test_add_cartoon_redirect_to_index(client):
 
 @pytest.mark.urls('cartoon.urls')
 def test_check_content_index(client):
+    """Check content on page"""
     url = reverse('index')
     response = client.get(url)
     check_text = b'Hello! You need to log in'
@@ -35,7 +36,8 @@ def test_check_content_index(client):
 @pytest.mark.django_db
 def test_cartoons_list(client):
     """Check that all records in DB shown in url"""
-    response = client.get('/all_info_from_db/')
+    url = reverse('all_info_from_db')
+    response = client.get(url)
     cartoons_list = Cartoon.objects.all()
     assertQuerysetEqual(response.context['cartoons'], cartoons_list)
 

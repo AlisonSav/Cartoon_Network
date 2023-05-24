@@ -77,13 +77,16 @@ def add_cartoon(request):
 
 def add_cartoon_info(request):
     """Endpoint for adding all information about added cartoon"""
-    cartoon_title = request.POST.get('cartoon_title')
-    global cartoon
-    cartoon = Cartoon(title=cartoon_title)
-    add_user = Cartoon(title=cartoon_title, user_id=user.id)
-    add_user.save()
-    template = 'nickelodeon/add_cartoon_info.html'
-    return render(request, template, {"title": cartoon_title})
+    if request.method == 'POST':
+        cartoon_title = request.POST.get('cartoon_title')
+        global cartoon
+        cartoon = Cartoon(title=cartoon_title)
+        add_user = Cartoon(title=cartoon_title, user_id=user.id)
+        add_user.save()
+        template = 'nickelodeon/add_cartoon_info.html'
+        return render(request, template, {"title": cartoon_title})
+    else:
+        return HttpResponseRedirect(redirect_link)
 
 
 def show_info(request):

@@ -6,6 +6,7 @@ from .models import CartoonUser
 
 class CartoonUserForm(forms.ModelForm):
     username = forms.CharField(min_length=3, max_length=25)
+
     class Meta:
         model = CartoonUser
         fields = ['username', 'surname', 'email']
@@ -14,6 +15,12 @@ class CartoonUserForm(forms.ModelForm):
         data = self.cleaned_data['username']
         if len(data.split()) > 2:
             raise ValidationError('Amazing but invalid Username!')
+        return data
+
+    def clean_surname(self):
+        data = self.cleaned_data['surname']
+        if len(data.split()) > 2:
+            raise ValidationError('Amazing but very long Surname')
         return data
 
     def clean(self):
@@ -26,6 +33,4 @@ class CartoonUserForm(forms.ModelForm):
         if username and surname and email and (username not in surname):
             pass
         else:
-            raise ValidationError('Please start your login form Username')
-
-
+            raise ValidationError('Please start your login again')

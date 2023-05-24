@@ -19,9 +19,9 @@ def get_info_numb(request, sign_path: int):
     return HttpResponse(f"<h3>Incorrect path: {sign_path}</h3>")
 
 
-# def index(request):
-#     """Endpoint with fields for login"""
-#     return render(request, 'nickelodeon/index.html')
+def index(request):
+    """Endpoint with fields for login"""
+    return render(request, 'nickelodeon/index.html')
 
 
 class IndexList(ListView):

@@ -23,14 +23,16 @@ class CartoonUserForm(forms.ModelForm):
             raise ValidationError('Amazing but very long Surname')
         return data
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not email.endswith('@ithillel.ua'):
+            raise ValidationError('Wrong email-domain')
+        else:
+            return email
+
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
         surname = cleaned_data.get('surname')
-        email = cleaned_data.get('email')
-        if not email.endswith('@ithillel.ua'):
-            raise ValidationError('Wrong email-domain')
-        if username and surname and email and (username not in surname):
-            pass
-        else:
+        if username and surname and (username in surname):
             raise ValidationError('Please start your login again')

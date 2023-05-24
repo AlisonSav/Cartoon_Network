@@ -30,4 +30,5 @@ class Cartoon(models.Model):
                                                                 MaxValueValidator(100)])
 
     def __str__(self):
-        return f"Cartoon: {self.title}, Author: {self.author}, Year: {self.year}, Rating: {self.rating}"
+        return f"Cartoon: {self.title}, Author: {self.author}, Year: {self.year}, Rating: {self.rating}," \
+               f" User_id: {self.user_id}"

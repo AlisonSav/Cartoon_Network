@@ -57,10 +57,10 @@ def login(request):
             username = form_data.cleaned_data['username']
             surname = form_data.cleaned_data['surname']
             email = form_data.cleaned_data['email']
-            print(form_data.cleaned_data)
             global user
-            user = CartoonUser(username, surname, login)
-            CartoonUser.objects.create(username=username, surname=surname, email=email)
+            user = CartoonUser(username, surname, email)
+            user_db = CartoonUser.objects.create(username=username, surname=surname, email=email)
+            user = user_db
         return render(request, 'nickelodeon/login.html', {"user": user, "error_message": form_data.errors})
     else:
         return HttpResponseRedirect(redirect_link)
@@ -80,7 +80,7 @@ def add_cartoon_info(request):
     cartoon_title = request.POST.get('cartoon_title')
     global cartoon
     cartoon = Cartoon(title=cartoon_title)
-    add_user = Cartoon(title=cartoon_title)
+    add_user = Cartoon(title=cartoon_title, user_id=user.id)
     add_user.save()
     template = 'nickelodeon/add_cartoon_info.html'
     return render(request, template, {"title": cartoon_title})

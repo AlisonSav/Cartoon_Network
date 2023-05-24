@@ -21,10 +21,7 @@ class CartoonUserForm(forms.ModelForm):
         username = cleaned_data.get('username')
         surname = cleaned_data.get('surname')
         email = cleaned_data.get('email')
-        print(cleaned_data)
-        if email.endswith('@ithillel.ua'):
-            pass
-        else:
+        if not email.endswith('@ithillel.ua'):
             raise ValidationError('Wrong email-domain')
         if username and surname and email and (username not in surname):
             pass

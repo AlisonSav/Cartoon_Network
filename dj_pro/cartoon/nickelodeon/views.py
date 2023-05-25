@@ -91,7 +91,7 @@ def add_cartoon_info(request):
 
 def show_info(request):
     """Show all information about added cartoon"""
-    if cartoon:
+    if request.method == "POST":
         year = request.POST.get('cartoon_year')
         author = request.POST.get('cartoon_author')
         rating = request.POST.get('cartoon_rating')

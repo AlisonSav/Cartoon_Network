@@ -5,7 +5,7 @@ from django.urls import reverse
 from pytest_django.asserts import assertQuerysetEqual
 
 from .models import Cartoon
-
+cartoon = None
 
 @pytest.mark.urls('cartoon.urls')
 def test_login_redirect_to_index(client):
@@ -34,18 +34,23 @@ def test_check_content_index(client):
 
 
 @pytest.mark.django_db
-def test_cartoons_list(client):
-    """Check that all records in DB shown in url"""
-    url = reverse('all_info_from_db')
-    response = client.get(url)
-    cartoons_list = Cartoon.objects.all()
-    assertQuerysetEqual(response.context['cartoons'], cartoons_list)
+def test_add_user(client):
+    """Check add user"""
+    username = b"Test"
+    email = 'test' + str(randint(100, 1000)) + '@ithillel.ua'
+    response = client.post('/login/', {"username": username, "surname": 'Test23', "email": email})
+    assert response.status_code == 200
+    assert username in response.content
 
 
 @pytest.mark.django_db
 def test_add_cartoon(client):
-    """Check added record in DB"""
-    year = randint(0, 1500)
-    cartoon = Cartoon.objects.create(title='test', year=year, rating=0)
-    cartoons_list = Cartoon.objects.all()
-    assert cartoon in cartoons_list
+    """Check add cartoon"""
+    title = b'TestTitle'
+    author = b'EtoJa'
+    Cartoon.objects.create(title=title, year=2000, author=author, rating=100)
+    response = client.get('/all_info_from_db/')
+    assert response.status_code == 200
+    assert title in response.content
+    assert author in response.content
+

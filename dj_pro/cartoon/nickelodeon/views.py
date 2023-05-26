@@ -1,15 +1,14 @@
 import sqlite3
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, FormView, CreateView
-
+from django.views.generic import ListView, DetailView
 from .forms import CartoonUserForm
 from .models import CartoonUser, Cartoon
 
 con = sqlite3.connect('db.sqlite3', check_same_thread=False)
-redirect_link = '/'
+redirect_link = reverse('index')
 user = None
 cartoon = None
 
@@ -95,7 +94,7 @@ def show_info(request):
         year = request.POST.get('cartoon_year')
         author = request.POST.get('cartoon_author')
         rating = request.POST.get('cartoon_rating')
-        upd_cartoon = Cartoon.objects.filter(title=cartoon.title).update(year=year, author=author, rating=rating)
+        Cartoon.objects.filter(title=cartoon.title).update(year=year, author=author, rating=rating)
         template = 'nickelodeon/show_info.html'
         cartoon_info = Cartoon.objects.get(title=cartoon.title)
         return render(request, template, {"cartoon": cartoon_info})

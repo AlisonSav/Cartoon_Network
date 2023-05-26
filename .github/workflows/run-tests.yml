@@ -8,7 +8,7 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v3
       - name: Install Requirements
-        run: pip install -r dj_pro/cartoon/requirements.txt
+        run: pip install flake8 pytest
       - name: Execute flake8 linter
         run: flake8 dj_pro/cartoon --config dj_pro/cartoon/.flake8
       - name: Execute Pytests

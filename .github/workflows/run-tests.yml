@@ -1,0 +1,13 @@
+name: Run Linter adn Tests
+on: [ push, pull_request ]
+jobs:
+  execute_linter_and_tests:
+    name: Install requirements and execute linter, and tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+      - name: Install Requirements
+        run: pip install flake8
+      - name: Execute flake8 linter
+        run: flake8 Dj_project/dj_pro --config Dj_project/dj_pro/.flake8

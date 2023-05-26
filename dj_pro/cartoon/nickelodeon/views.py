@@ -2,13 +2,12 @@ import sqlite3
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from .forms import CartoonUserForm
 from .models import CartoonUser, Cartoon
 
 con = sqlite3.connect('db.sqlite3', check_same_thread=False)
-redirect_link = reverse('index')
+redirect_link = '/'
 user = None
 cartoon = None
 

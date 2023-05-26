@@ -19,9 +19,9 @@ def get_info_numb(request, sign_path: int):
     return HttpResponse(f"<h3>Incorrect path: {sign_path}</h3>")
 
 
-# def index(request):
-#     """Endpoint with fields for login"""
-#     return render(request, 'nickelodeon/index.html')
+def index(request):
+    """Endpoint with fields for login"""
+    return render(request, 'nickelodeon/index.html')
 
 
 class IndexList(ListView):
@@ -77,18 +77,21 @@ def add_cartoon(request):
 
 def add_cartoon_info(request):
     """Endpoint for adding all information about added cartoon"""
-    cartoon_title = request.POST.get('cartoon_title')
-    global cartoon
-    cartoon = Cartoon(title=cartoon_title)
-    add_user = Cartoon(title=cartoon_title, user_id=user.id)
-    add_user.save()
-    template = 'nickelodeon/add_cartoon_info.html'
-    return render(request, template, {"title": cartoon_title})
+    if request.method == 'POST':
+        cartoon_title = request.POST.get('cartoon_title')
+        global cartoon
+        cartoon = Cartoon(title=cartoon_title)
+        add_user = Cartoon(title=cartoon_title, user_id=user.id)
+        add_user.save()
+        template = 'nickelodeon/add_cartoon_info.html'
+        return render(request, template, {"title": cartoon_title})
+    else:
+        return HttpResponseRedirect(redirect_link)
 
 
 def show_info(request):
     """Show all information about added cartoon"""
-    if cartoon:
+    if request.method == "POST":
         year = request.POST.get('cartoon_year')
         author = request.POST.get('cartoon_author')
         rating = request.POST.get('cartoon_rating')

@@ -10,4 +10,4 @@ jobs:
       - name: Install Requirements
         run: pip install flake8
       - name: Execute flake8 linter
-        run: flake8 Dj_project/dj_pro --config dj_pro/cartoon/.flake8
+        run: flake8 dj_pro/cartoon --config dj_pro/cartoon/.flake8

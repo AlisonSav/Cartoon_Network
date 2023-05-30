@@ -2,10 +2,9 @@ from random import randint
 
 import pytest
 from django.urls import reverse
-from pytest_django.asserts import assertQuerysetEqual
 
 from .models import Cartoon
-cartoon = None
+
 
 @pytest.mark.urls('cartoon.urls')
 def test_login_redirect_to_index(client):
@@ -53,4 +52,3 @@ def test_add_cartoon(client):
     assert response.status_code == 200
     assert title in response.content
     assert author in response.content
-
